@@ -232,7 +232,7 @@ def main_test(
 if __name__ == "__main__":
     test_type = "infer_schedule_policy_test"
     models = ["llama"]
-    datasets = ["lmsys"]
+    datasets = ["alpaca"]
     rerun = True
     max_token_nums = [4096]
     batch_sizes = [512]

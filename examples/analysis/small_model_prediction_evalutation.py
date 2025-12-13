@@ -183,7 +183,7 @@ def test_max_model_output_length_batch(large_model: Model, prompt: List[str]):
     inputs = list(
         large_model.tokenizer(prompt, padding=True, return_tensors="pt")["input_ids"]
     )
-    eos_poss, eos_probabilities, input_length, output_length = predict_batch(
+    eos_poss, eos_probabilities, input_lengths, output_lengths = predict_batch(
         large_model.model, 4, inputs, large_model.tokenizer.eos_token_id
     )
     # for seq in tqdm(prompt):

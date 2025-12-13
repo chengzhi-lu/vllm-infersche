@@ -12,13 +12,13 @@ TOKENIZERS_PARALLELISM="true"
 # 模型和数据集配置
 model_names=(
   # "meta-llama/Llama-2-13b-chat-hf"
-  "meta-llama/Llama-3.1-8B-Instruct"
+  # "meta-llama/Llama-3.1-8B-Instruct"
   # "meta-llama/Llama-2-70b-chat-hf"
-  # "meta-llama/Llama-3.1-70B-Instruct"
+  "meta-llama/Llama-3.1-70B-Instruct"
 )
 parallel_types=(
-  "single"
-  # "tp"
+  # "single"
+  "tp"
   # "pp"
 )
 datasets=(

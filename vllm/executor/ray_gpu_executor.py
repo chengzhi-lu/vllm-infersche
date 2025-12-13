@@ -110,7 +110,7 @@ class RayGPUExecutor(DistributedGPUExecutor):
         worker_node_and_gpu_ids = self._run_workers("get_node_and_gpu_ids",
                                                     use_dummy_driver=True)
 
-        
+        print(worker_node_and_gpu_ids)
         worker_ranks = [-1 for x in worker_node_and_gpu_ids]
         current_rank = 0
         while -1 in worker_ranks:
