@@ -136,7 +136,7 @@ class RequestTracker:
         self._request_streams[request_id].put(request_output)
         if request_output.finished:
             if verbose:
-                logger.info("Finished request %s.", request_id)
+                logger.debug("Finished request %s.", request_id)
             self.abort_request(request_id)
 
     def process_request_reach_ddl_output(self, request_id: str, output) -> None:
@@ -152,7 +152,7 @@ class RequestTracker:
         """Propagate an exception from the engine."""
         self._request_streams[request_id].put(exception)
         if verbose:
-            logger.info("Finished request %s.", request_id)
+            logger.debug("Finished request %s.", request_id)
         self.abort_request(request_id)
 
     def add_request(self, request_id: str,
@@ -725,7 +725,9 @@ class AsyncLLMEngine:
                     else:
                         has_requests_in_progress[virtual_engine] = False
                         if any([scheduler.reach_ddl for scheduler in self.engine.scheduler]) or \
-                            not any(has_requests_in_progress):
+                            not any(has_requests_in_progress) and \
+                                (self.engine.scheduler_config.enbale_seq_trace and \
+                                self.engine.scheduler_config.enbale_system_trace):
                             if len(self.engine.seq_group_metrics) ==0:
                                 continue
                             current_time = time.time()
@@ -784,7 +786,7 @@ class AsyncLLMEngine:
                 if shortened_token_ids is not None:
                     shortened_token_ids = shortened_token_ids[:max_log_len]
 
-            logger.info(
+            logger.debug(
                 "Received request %s: prompt: %r, "
                 "params: %s, prompt_token_ids: %s, "
                 "lora_request: %s.", request_id, shortened_prompt, params,

@@ -744,7 +744,8 @@ class Scheduler:
             if int(os.environ.get('OPT_TIME', 0)):
                 t1 = time.time()       
                 print("OPT-TIME: ", t1 - t0)
-        
+        if len(self.running) > 0:
+            print(f"[Scheduler] self.running {self.running[0].aux_model_score}")
         if self.starv != -1:
             for r in list(self.waiting) + list(self.running) + list(self.swapped):
                 if r.idle >= self.starv:

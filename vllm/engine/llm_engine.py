@@ -991,20 +991,22 @@ class LLMEngine:
             # the RPC thread in the workers so that they can process any other
             # queued control plane messages, such as add/remove lora adapters.
             self.model_executor.stop_remote_worker_execution_loop()
-            self.save_trace(self.trace_file_path)
+            if self.scheduler_config.enable_system_trace and self.scheduler_config.enbale_seq_trace:
+                self.save_trace(self.trace_file_path)
 
         self.et = time.time()
         self.handle_output_time[0] = self.et - st
-        scheduler_metric = copy.deepcopy(self.scheduler[0].scheduler_metric)
-        scheduler_metric.total_count=self.total_count[0]
-        scheduler_metric.schedule_time=self.schedule_time[0]
-        scheduler_metric.execution_time=self.execution_time[0]
-        scheduler_metric.swap_time=self.swap_time[0]
-        scheduler_metric.handle_output_time=self.handle_output_time[0]
-        scheduler_metric.scheduler_index=0
-        scheduler_metric.scheduler_start_time=schedule_start_time
-        scheduler_metric.scheduler_end_time=self.et
-        self.scheduler_metrics.append(scheduler_metric)
+        if self.scheduler_config.enable_system_trace and self.scheduler_config.enbale_seq_trace:
+            scheduler_metric = copy.deepcopy(self.scheduler[0].scheduler_metric)
+            scheduler_metric.total_count=self.total_count[0]
+            scheduler_metric.schedule_time=self.schedule_time[0]
+            scheduler_metric.execution_time=self.execution_time[0]
+            scheduler_metric.swap_time=self.swap_time[0]
+            scheduler_metric.handle_output_time=self.handle_output_time[0]
+            scheduler_metric.scheduler_index=0
+            scheduler_metric.scheduler_start_time=schedule_start_time
+            scheduler_metric.scheduler_end_time=self.et
+            self.scheduler_metrics.append(scheduler_metric)
         self.scheduler[0].reset_schedule_metric()
 
         return request_outputs

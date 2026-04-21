@@ -302,7 +302,7 @@ class LoggingStatLogger(StatLoggerBase):
 
             
             # Log to stdout.
-            logger.info(
+            logger.warning(
                 "Avg prompt throughput: %.1f tokens/s, "
                 "Avg generation throughput: %.1f tokens/s, "
                 "Running: %d reqs, Swapped: %d reqs, "

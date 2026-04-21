@@ -36,6 +36,8 @@ class CompletionOutput:
     lora_request: Optional[LoRARequest] = None
     pred_score: Optional[float] = None,
     aux_model_score: Optional[float] = None
+    eos_prob: Tuple[float, ...] = ()
+    eos_rank: Tuple[int, ...] = ()
 
     def finished(self) -> bool:
         return self.finish_reason is not None

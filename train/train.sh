@@ -17,8 +17,10 @@
 
 # python3 trainer.py --config configs/config_prefill_opt_350m.txt --file /root/vllm/benchmarks/output-alpaca-Llama-2-70b-chat-hf.jsonl --job-dir MODEL --run-id opt-350m-llama2-70b-alpaca-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
 
-python3 trainer.py --config configs/config_prefill_opt.txt --file /root/vllm/benchmarks/output_dir/output-sharegpt-Llama-2-13b-chat-hf.jsonl --job-dir MODEL --run-id opt-125m-llama2-13b-sharegpt-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
-# python3 trainer.py --config configs/config_prefill_opt.txt --file /root/vllm/benchmarks/output_dir/output-sharegpt-Llama-2-70b-chat-hf.jsonl --job-dir MODEL --run-id opt-350m-llama2-70b-sharegpt-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
+# python3 trainer.py --config configs/config_prefill_opt.txt --file /root/vllm/examples/analysis/result_analysis/eos_prob_analysis/data/eos_result/output-alpaca-Llama-2-13b-chat-hf.jsonl --job-dir MODEL --run-id opt-125m-llama2-13b-alpaca-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
+
+# python3 trainer.py --config configs/config_prefill_opt.txt --file /root/vllm/benchmarks/output_dir/output-sharegpt-Llama-2-13b-chat-hf.jsonl --job-dir MODEL --run-id opt-125m-llama2-13b-sharegpt-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
+python3 trainer.py --config configs/config_prefill_opt_350m.txt --file /root/vllm/examples/analysis/result_analysis/eos_prob_analysis/data/eos_result/output-alpaca-Llama-2-70b-chat-hf.jsonl --job-dir MODEL --run-id opt-350m-llama2-70b-alpaca-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
 
 # python3 trainer.py --config configs/config_prefill_opt.txt --file /root/vllm/benchmarks/output-lmsys-Llama-2-13b-chat-hf.jsonl --job-dir MODEL --run-id opt-350m-llama2-13b-lmsys-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE
 # python3 trainer.py --config configs/config_prefill_opt.txt --file /root/vllm/benchmarks/output-lmsys-Llama-2-70b-chat-hf.jsonl --job-dir MODEL --run-id opt-350m-llama2-70b-lmsys-score-trainbucket10-b32 --batch-size 32 --label-group-size 10 --loss listMLE

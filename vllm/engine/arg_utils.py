@@ -123,6 +123,9 @@ class EngineArgs:
     placement_group: Optional[str] = None
     llm_model_executor: Optional[str] = None 
 
+    enable_system_trace: bool = False
+    enable_seq_trace: bool = False
+
 
     def __post_init__(self):
         if self.tokenizer is None:
@@ -605,6 +608,15 @@ class EngineArgs:
             help='The path to the trace file for the engine.'
         )
 
+        parser.add_argument('--enable-system-trace',
+                            action='store_true',
+                            default=EngineArgs.enable_system_trace,
+                            help='Enable system trace collection.')
+        parser.add_argument('--enable-seq-trace',
+                            action='store_true',
+                            default=EngineArgs.enable_seq_trace,
+                            help='Enable per-sequence trace collection.')
+        
         parser.add_argument(
             '--speculative-model',
             type=nullable_str,
@@ -868,6 +880,8 @@ class EngineArgs:
             waiting_iter_base=self.waiting_iter_base,
             trace_file_path=self.trace_file_path,
             phase=self.phase,
+            enable_system_trace=self.enable_system_trace,
+            enable_seq_trace=self.enable_seq_trace
         )
         lora_config = LoRAConfig(
             max_lora_rank=self.max_lora_rank,

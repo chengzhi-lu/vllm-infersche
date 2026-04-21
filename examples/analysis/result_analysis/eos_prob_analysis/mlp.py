@@ -10,13 +10,13 @@ import torch.nn.functional as F
 # -----------------------------
 # Config
 # -----------------------------
-BASE_DIR = "/root/vllm/vllm/examples/analysis/data/eos_result/"
+BASE_DIR = "/root/vllm/examples/analysis/result_analysis/eos_prob_analysis/data/eos_result/"
 
-MODEL_NAMES = ["llama"]
+MODEL_NAMES = ["llama-70b"]
 DATASET_NAMES = ["alpaca"]
 
 DATASET_NAME_MAP = {"alpaca": "Alpaca"}
-MODEL_NAME_MAP = {"llama": "Llama"}
+MODEL_NAME_MAP = {"llama-70b": "Llama 70B"}
 
 TRAIN_END = 4000          # first 4000 for training
 MAX_ROWS = 10000          # use eos_df.loc[:MAX_ROWS]
@@ -56,18 +56,19 @@ def load_eos_prob_data():
     dfs = []
     for model_name in MODEL_NAMES:
         for dataset_name in DATASET_NAMES:
-            path = f"{BASE_DIR}{model_name}_{dataset_name}_eos_prob_result.csv"
+            path = f"{BASE_DIR}{model_name}_{dataset_name}_eos_prob_result_test.csv"
             df = pd.read_csv(path)
             df["model_dataset"] = MODEL_NAME_MAP[model_name] + " " + DATASET_NAME_MAP[dataset_name]
             dfs.append(df)
     df_all = pd.concat(dfs, ignore_index=True)
+    print(f"[INFO] Loaded eos prob data: {len(df_all)} rows from {len(dfs)} files.")
     df_all = df_all[df_all["eos_prob"] != 0]
     return df_all
 
 
-def build_prompt_len_table(eos_df, max_rows=MAX_ROWS):
+def build_prompt_len_table(eos_df):
     return (
-        eos_df.loc[:max_rows, ["model_dataset", "request_id", "prompt_len", "token_num"]]
+        eos_df.loc[:, ["model_dataset", "request_id", "prompt_len", "token_num"]]
         .groupby(["model_dataset", "request_id"])
         .max()
         .reset_index()
